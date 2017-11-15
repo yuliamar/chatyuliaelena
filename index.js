@@ -7,7 +7,7 @@ var app = express();
 var bodyParser = require("body-parser");
 var siofu = require("socketio-file-upload");
 var cfenv = require("cfenv")
-
+let port = process.env.PORT || process.env.VCAP_APP_PORT || 3000;
 
 
 var http = require('http').Server(app);
@@ -225,7 +225,7 @@ function getRandomRolor() {
 }
 
 // listen to port
-	http.listen('3000', function() {
+	http.listen(port, function() {
 //	http.listen(appEnv.port, appEnv.bind, function() { 
     console.log("server starting on " + appEnv.url)
 })
