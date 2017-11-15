@@ -1,5 +1,5 @@
 ---
 applications:
- - name: CCChatApplication
+ - name: chatApplication
    memory: 512M
    instances: 1
