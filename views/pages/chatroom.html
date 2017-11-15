@@ -1,0 +1,35 @@
+<%- include ../partials/header.html %>
+
+<div class="wrapper">		
+	<div class="main">
+		<div class="chat-wrapper">
+		    <ul id="messages">		    	
+		    </ul>    						
+		</div>
+		<div class="chat-input">
+			<form action="">	
+				<div class="input">
+					<input id="m" placeholder="Type something ..." autocomplete="off" />
+				</div>	      					
+	      		<div class="modal-open">Upload</div>	      		
+	      		<button type="submit" id="submit">Send</button>
+	    	</form>
+		</div>
+	</div>
+</div>
+<div id="popup1" class="overlay">
+	<div class="popup">
+		<h2>File upload</h2>
+		<a id="modal-close" class="close">&times;</a>
+		<div class="content">
+			<div id="popup-userlist">				
+			</div>						
+			<div>
+				<input type="file" id="input-file" />
+			</div>
+		</div>
+		<button id="upload-button">upload</button>
+	</div>
+</div>
+    
+<%- include ../partials/footer.html %>

@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+  <head>
+      <title>Chatroom</title>
+	  <link rel="stylesheet" href="/css/style.css">
+	  <script src="/socket.io/socket.io.js"></script>
+	  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	  <script src="/siofu/client.js"></script>
+	  
+	  <script>
+	  	var username = "<%= username %>";
+	  	if(username == null){
+	  		window.location = "/index.html";
+	  	}
+	  </script>
+	  <script src="/js/main.js"></script>
+  </head>
+<body>
