@@ -3,3 +3,4 @@ applications:
  - name: chataplication
    memory: 512M
    host: chataplication
+   buildpack: staticfile_buildpack
