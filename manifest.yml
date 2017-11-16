@@ -1,5 +1,5 @@
 ---
 applications:
- - name: chatApplication
+ - name: chataplication
    memory: 512M
-   instances: 1
+   host: chataplication
