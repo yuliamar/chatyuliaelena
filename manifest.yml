@@ -1,14 +1,8 @@
 ---
 applications:
-<<<<<<< HEAD
  - name: chatAplication
    memory: 512M
-   instances: 1
-   command: node index.js
-=======
- - name: chataplication
-   memory: 512M
-   host: chataplication
+   host: chatAplication
    command: node index.js
    buildpack: staticfile_buildpack
->>>>>>> 50dbb13418c4a45fd28d9fb2f54394aa5bb3dd30
+
