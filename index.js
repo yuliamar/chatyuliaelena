@@ -191,7 +191,7 @@ io.on('connection', function(socket){
 		    	'color': socket.color,
 		    	'socketId': socket.id,
 		    	'timestamp': Date.now(),
-				'link': 'http://134.103.109.30:3000/' +"/"+ event.file.name,
+				'link': 'https://chataplication.eu-de.mybluemix.net:'+port+"/"+ event.file.name,
 				'filename': event.file.name
 			}
 	        

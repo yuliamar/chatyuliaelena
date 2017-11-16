@@ -1,5 +1,6 @@
 ---
 applications:
- - name: chatApplication
+ - name: chatAplication
    memory: 512M
    instances: 1
+   command: node index.js
