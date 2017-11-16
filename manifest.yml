@@ -3,4 +3,5 @@ applications:
  - name: chataplication
    memory: 512M
    host: chataplication
+   command: node index.js
    buildpack: staticfile_buildpack
