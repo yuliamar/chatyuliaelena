@@ -5,5 +5,3 @@ applications:
    instances: 1
    host: chatAplication
    command: node index.js
-   domain: mybluemix.net
-
