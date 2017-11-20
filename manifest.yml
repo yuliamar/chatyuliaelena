@@ -2,7 +2,9 @@
 applications:
  - name: chatAplication
    memory: 512M
+   instances: 1
    host: chatAplication
    command: node index.js
    buildpack: staticfile_buildpack
+   domain: mybluemix.net
 

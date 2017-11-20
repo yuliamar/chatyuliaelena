@@ -227,10 +227,7 @@ function getRandomRolor() {
 // listen to port
 	http.listen(port, function() {
 //	http.listen(appEnv.port, appEnv.bind, function() { 
-    console.log("server starting on " + appEnv.url)
+    console.log("server starting on " + port)
 })
-
-
-
 
 
