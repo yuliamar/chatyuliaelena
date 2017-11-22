@@ -9,6 +9,8 @@ var siofu = require("socketio-file-upload");
 var cfenv = require("cfenv")
 let port = process.env.PORT || process.env.VCAP_APP_PORT || 3000;
 
+//Enable reverse proxy support in Express.
+app.enable('trust proxy');
 
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -25,6 +27,17 @@ app.use(siofu.router);
 // set engine for templating
 app.engine('.html', require('ejs').__express);
 app.set('view engine', 'html')
+
+
+app.use (function (req, res, next) {
+        if (req.secure) {
+                // request was via https, so do no special handling
+                next();
+        } else {
+                // request was via http, so redirect to https
+                res.redirect('https://' + req.headers.host + req.url);
+        }
+});
 
 //Access rights to the uploads folder (Pictures, Videos ...)
 app.use(express.static(__dirname + '/public'));
@@ -223,6 +236,7 @@ function getRandomRolor() {
 	}
 	return color;
 }
+
 
 // listen to port
 	http.listen(port, function() {
