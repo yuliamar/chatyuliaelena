@@ -3,6 +3,7 @@
 
 //Initialisation from the socket.io and node.js
 var express = require('express');
+var helmet = require('helmet');
 var app = express();
 var bodyParser = require("body-parser");
 var siofu = require("socketio-file-upload");
@@ -20,6 +21,7 @@ var users = [];
 // array of sockets
 var sockets = {};
 
+app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // use uploader
@@ -28,6 +30,16 @@ app.use(siofu.router);
 app.engine('.html', require('ejs').__express);
 app.set('view engine', 'html')
 
+//Sicherheit
+//The page can only be displayed in a frame on the same origin as the page itself.
+add_header X-Frame-Options SAMEORIGIN;
+//Will prevent the browser from MIME-sniffing a response away from the declared content-type.
+add_header X-Content-Type-Options nosniff;
+//enables the Cross-site scripting (XSS) filter built into most recent web browsers.
+add_header X-XSS-Protection "1; mode=block";
+//Es kann nur Inhalte aus den Domains herunterladen, die zugelassen sind.
+//It can only download content from the domains that are allowed.
+add_header Content-Security-Policy "default-src 'self'";
 
 app.use (function (req, res, next) {
         if (req.secure) {
