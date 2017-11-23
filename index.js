@@ -31,22 +31,6 @@ app.use(siofu.router);
 app.engine('.html', require('ejs').__express);
 app.set('view engine', 'html')
 
-
-//Session Management
-//app.use(function (req, res, next) {
-//	  var n = req.session.views || 0;
-//	  req.session.views = n++;
-//	  res.end(n + ' views');
-//	});
-
-//app.use(cookieSession({
-//name: 'session',
-//keys: [
-//  process.env.COOKIE_KEY1,
-//  process.env.COOKIE_KEY2
-//]
-//}));
-
 //Will prevent the browser from MIME-sniffing a response away from the declared content-type.
 module.exports = function nosniff () {
 	  return function nosniff (req, res, next) {
@@ -79,17 +63,6 @@ module.exports = function xXssProtection (options) {
 	    }
 	  }
 	}
-
-////Sicherheit
-////The page can only be displayed in a frame on the same origin as the page itself.
-//add_header X-Frame-Options SAMEORIGIN;
-////Will prevent the browser from MIME-sniffing a response away from the declared content-type.
-//add_header X-Content-Type-Options nosniff;
-////enables the Cross-site scripting (XSS) filter built into most recent web browsers.
-//add_header X-XSS-Protection "1; mode=block";
-////Es kann nur Inhalte aus den Domains herunterladen, die zugelassen sind.
-////It can only download content from the domains that are allowed.
-//add_header Content-Security-Policy "default-src 'self'";
 
 
 module.exports = function hsts (options) {
