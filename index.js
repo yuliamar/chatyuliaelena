@@ -9,7 +9,7 @@ var bodyParser = require("body-parser");
 var siofu = require("socketio-file-upload");
 var cfenv = require("cfenv")
 var defaultMaxAge = 180 * 24 * 60 * 60;
-let port = process.env.PORT || process.env.VCAP_APP_PORT || 3000;
+var port = process.env.PORT || process.env.VCAP_APP_PORT || 3000;
 
 //Enable reverse proxy support in Express.
 app.enable('trust proxy');
@@ -40,7 +40,7 @@ if (process.env.hasOwnProperty("VCAP_SERVICES")) {
 	  // Running on Bluemix. Parse out the port and host that we've been assigned.
 	  var env = JSON.parse(process.env.VCAP_SERVICES);
 	  var host = process.env.VCAP_APP_HOST;
-	  var port = process.env.VCAP_APP_PORT;
+//	  var port = process.env.VCAP_APP_PORT;
 	 
 	  // Also parse out Cloudant settings.
 	  cloudant = env['cloudantNoSQLDB'][0].credentials;  
