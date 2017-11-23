@@ -3,7 +3,7 @@
 
 //Initialisation from the socket.io and node.js
 var express = require('express');
-var helmet = require('helmet');
+//var helmet = require('helmet');
 var app = express();
 var bodyParser = require("body-parser");
 var siofu = require("socketio-file-upload");
@@ -21,7 +21,7 @@ var users = [];
 // array of sockets
 var sockets = {};
 
-app.use(helmet());
+//app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // use uploader
