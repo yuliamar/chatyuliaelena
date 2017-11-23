@@ -31,28 +31,29 @@ app.use(siofu.router);
 app.engine('.html', require('ejs').__express);
 app.set('view engine', 'html')
 
-//Session Management
-app.use(cookieSession({
-  name: 'session',
-  keys: [
-    process.env.COOKIE_KEY1,
-    process.env.COOKIE_KEY2
-  ]
-}));
-
 app.use(function (req, res, next) {
 	  var n = req.session.views || 0;
 	  req.session.views = n++;
 	  res.end(n + ' views');
 	});
 
+//Session Management
+//app.use(cookieSession({
+//name: 'session',
+//keys: [
+//  process.env.COOKIE_KEY1,
+//  process.env.COOKIE_KEY2
+//]
+//}));
+
+
 //Will prevent the browser from MIME-sniffing a response away from the declared content-type.
 module.exports = function nosniff () {
-  return function nosniff (req, res, next) {
-    res.setHeader('X-Content-Type-Options', 'nosniff')
-    next()
-  }
-}
+	  return function nosniff (req, res, next) {
+	    res.setHeader('X-Content-Type-Options', 'nosniff')
+	    next()
+	  }
+	}
 
 
 //enables the Cross-site scripting (XSS) filter built into most recent web browsers.
