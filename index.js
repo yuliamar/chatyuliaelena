@@ -8,6 +8,7 @@ var app = express();
 var bodyParser = require("body-parser");
 var siofu = require("socketio-file-upload");
 var cfenv = require("cfenv")
+var defaultMaxAge = 180 * 24 * 60 * 60;
 let port = process.env.PORT || process.env.VCAP_APP_PORT || 3000;
 
 //Enable reverse proxy support in Express.
@@ -89,6 +90,54 @@ module.exports = function xXssProtection (options) {
 ////Es kann nur Inhalte aus den Domains herunterladen, die zugelassen sind.
 ////It can only download content from the domains that are allowed.
 //add_header Content-Security-Policy "default-src 'self'";
+
+
+module.exports = function hsts (options) {
+	  options = options || {}
+
+	  var maxAge = options.maxAge != null ? options.maxAge : defaultMaxAge
+	  var includeSubDomains = (options.includeSubDomains !== false) && (options.includeSubdomains !== false)
+	  var setIf = options.hasOwnProperty('setIf') ? options.setIf : alwaysTrue
+
+	  if (options.hasOwnProperty('maxage')) {
+	    throw new Error('maxage is not a supported property. Did you mean to pass "maxAge" instead of "maxage"?')
+	  }
+	  if (arguments.length > 1) {
+	    throw new Error('HSTS passed the wrong number of arguments.')
+	  }
+	  if (typeof maxAge !== 'number') {
+	    throw new TypeError('HSTS must be passed a numeric maxAge parameter.')
+	  }
+	  if (maxAge < 0) {
+	    throw new RangeError('HSTS maxAge must be nonnegative.')
+	  }
+	  if (typeof setIf !== 'function') {
+	    throw new TypeError('setIf must be a function.')
+	  }
+	  if (options.hasOwnProperty('includeSubDomains') && options.hasOwnProperty('includeSubdomains')) {
+	    throw new Error('includeSubDomains and includeSubdomains cannot both be specified.')
+	  }
+
+	  var header = 'max-age=' + Math.round(maxAge)
+	  if (includeSubDomains) {
+	    header += '; includeSubDomains'
+	  }
+	  if (options.preload) {
+	    header += '; preload'
+	  }
+
+	  return function hsts (req, res, next) {
+	    if (setIf(req, res)) {
+	      res.setHeader('Strict-Transport-Security', header)
+	    }
+
+	    next()
+	  }
+	}
+
+	function alwaysTrue () {
+	  return true
+	}
 
 app.use (function (req, res, next) {
         if (req.secure) {
