@@ -4,6 +4,7 @@
 //Initialisation from the socket.io and node.js
 var express = require('express');
 var helmet = require('helmet');
+var cookieSession = require('cookie-session');
 var app = express();
 var bodyParser = require("body-parser");
 var siofu = require("socketio-file-upload");
@@ -30,6 +31,22 @@ app.use(siofu.router);
 app.engine('.html', require('ejs').__express);
 app.set('view engine', 'html')
 
+//Session Management
+app.use(cookieSession({
+  name: 'session',
+  keys: [
+    process.env.COOKIE_KEY1,
+    process.env.COOKIE_KEY2
+  ]
+}));
+
+app.use(function (req, res, next) {
+	  var n = req.session.views || 0;
+	  req.session.views = n++;
+	  res.end(n + ' views');
+	});
+
+//Will prevent the browser from MIME-sniffing a response away from the declared content-type.
 module.exports = function nosniff () {
   return function nosniff (req, res, next) {
     res.setHeader('X-Content-Type-Options', 'nosniff')
@@ -37,6 +54,8 @@ module.exports = function nosniff () {
   }
 }
 
+
+//enables the Cross-site scripting (XSS) filter built into most recent web browsers.
 module.exports = function xXssProtection (options) {
 	  if (options && options.setOnOldIE) {
 	    return function xXssProtection (req, res, next) {
