@@ -31,13 +31,14 @@ app.use(siofu.router);
 app.engine('.html', require('ejs').__express);
 app.set('view engine', 'html')
 
-app.use(function (req, res, next) {
-	  var n = req.session.views || 0;
-	  req.session.views = n++;
-	  res.end(n + ' views');
-	});
 
 //Session Management
+//app.use(function (req, res, next) {
+//	  var n = req.session.views || 0;
+//	  req.session.views = n++;
+//	  res.end(n + ' views');
+//	});
+
 //app.use(cookieSession({
 //name: 'session',
 //keys: [
