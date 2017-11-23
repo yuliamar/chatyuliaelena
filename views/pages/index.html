@@ -10,8 +10,11 @@
   	<form action="/chatroom.html" method="post">
     	<div class="container" >
     		<div class="username-form">
-    				<label><%= error %></label>
+    			<label><%= error %></label>
+    			<label for="username">Username:</label> 
     			<input id="username" type="text" placeholder="Enter Username" name="uname" required>
+    			<label for="passwd">Password</label>  
+    			<input type="password" id="passwd" placeholder="Your Password" required>
     			<button type="submit">Login</button>   			
     		</div>
   		</div> 
