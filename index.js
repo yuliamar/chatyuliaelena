@@ -3,7 +3,7 @@
 
 //Initialisation from the socket.io and node.js
 var express = require('express');
-//var helmet = require('helmet');
+var helmet = require('helmet');
 var app = express();
 var bodyParser = require("body-parser");
 var siofu = require("socketio-file-upload");
@@ -21,7 +21,7 @@ var users = [];
 // array of sockets
 var sockets = {};
 
-//app.use(helmet());
+app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // use uploader
@@ -47,37 +47,37 @@ app.set('view engine', 'html')
 //}));
 
 //Will prevent the browser from MIME-sniffing a response away from the declared content-type.
-//module.exports = function nosniff () {
-//	  return function nosniff (req, res, next) {
-//	    res.setHeader('X-Content-Type-Options', 'nosniff')
-//	    next()
-//	  }
-//	}
+module.exports = function nosniff () {
+	  return function nosniff (req, res, next) {
+	    res.setHeader('X-Content-Type-Options', 'nosniff')
+	    next()
+	  }
+	}
 
 
 //enables the Cross-site scripting (XSS) filter built into most recent web browsers.
-//module.exports = function xXssProtection (options) {
-//	  if (options && options.setOnOldIE) {
-//	    return function xXssProtection (req, res, next) {
-//	      res.setHeader('X-XSS-Protection', '1; mode=block')
-//	      next()
-//	    }
-//	  } else {
-//	    return function xXssProtection (req, res, next) {
-//	      var matches = /msie\s*(\d+)/i.exec(req.headers['user-agent'])
-//
-//	      var value
-//	      if (!matches || (parseFloat(matches[1]) >= 9)) {
-//	        value = '1; mode=block'
-//	      } else {
-//	        value = '0'
-//	      }
-//
-//	      res.setHeader('X-XSS-Protection', value)
-//	      next()
-//	    }
-//	  }
-//	}
+module.exports = function xXssProtection (options) {
+	  if (options && options.setOnOldIE) {
+	    return function xXssProtection (req, res, next) {
+	      res.setHeader('X-XSS-Protection', '1; mode=block')
+	      next()
+	    }
+	  } else {
+	    return function xXssProtection (req, res, next) {
+	      var matches = /msie\s*(\d+)/i.exec(req.headers['user-agent'])
+
+	      var value
+	      if (!matches || (parseFloat(matches[1]) >= 9)) {
+	        value = '1; mode=block'
+	      } else {
+	        value = '0'
+	      }
+
+	      res.setHeader('X-XSS-Protection', value)
+	      next()
+	    }
+	  }
+	}
 
 ////Sicherheit
 ////The page can only be displayed in a frame on the same origin as the page itself.
