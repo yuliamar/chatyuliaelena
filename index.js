@@ -55,34 +55,29 @@ module.exports = function nosniff () {
 	}
 
 
-app.get('/*',function(req,res,next){
-    res.header('X-XSS-Protection' , 0 );
-    next(); // http://expressjs.com/guide.html#passing-route control
-});
-
 //enables the Cross-site scripting (XSS) filter built into most recent web browsers.
-//module.exports = function xXssProtection (options) {
-//	  if (options && options.setOnOldIE) {
-//	    return function xXssProtection (req, res, next) {
-//	      res.setHeader('X-XSS-Protection', '1; mode=block')
-//	      next()
-//	    }
-//	  } else {
-//	    return function xXssProtection (req, res, next) {
-//	      var matches = /msie\s*(\d+)/i.exec(req.headers['user-agent'])
-//
-//	      var value
-//	      if (!matches || (parseFloat(matches[1]) >= 9)) {
-//	        value = '1; mode=block'
-//	      } else {
-//	        value = '0'
-//	      }
-//
-//	      res.setHeader('X-XSS-Protection', value)
-//	      next()
-//	    }
-//	  }
-//	}
+module.exports = function xXssProtection (options) {
+	  if (options && options.setOnOldIE) {
+	    return function xXssProtection (req, res, next) {
+	      res.setHeader('X-XSS-Protection', '1; mode=block')
+	      next()
+	    }
+	  } else {
+	    return function xXssProtection (req, res, next) {
+	      var matches = /msie\s*(\d+)/i.exec(req.headers['user-agent'])
+
+	      var value
+	      if (!matches || (parseFloat(matches[1]) >= 9)) {
+	        value = '1; mode=block'
+	      } else {
+	        value = '0'
+	      }
+
+	      res.setHeader('X-XSS-Protection', value)
+	      next()
+	    }
+	  }
+	}
 
 ////Sicherheit
 ////The page can only be displayed in a frame on the same origin as the page itself.
