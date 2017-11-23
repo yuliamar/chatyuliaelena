@@ -30,7 +30,12 @@ app.use(siofu.router);
 app.engine('.html', require('ejs').__express);
 app.set('view engine', 'html')
 
-
+module.exports = function nosniff () {
+  return function nosniff (req, res, next) {
+    res.setHeader('X-Content-Type-Options', 'nosniff')
+    next()
+  }
+}
 ////Sicherheit
 ////The page can only be displayed in a frame on the same origin as the page itself.
 //add_header X-Frame-Options SAMEORIGIN;
