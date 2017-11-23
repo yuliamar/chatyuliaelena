@@ -47,7 +47,6 @@ app.set('view engine', 'html')
 //]
 //}));
 
-
 //Will prevent the browser from MIME-sniffing a response away from the declared content-type.
 module.exports = function nosniff () {
 	  return function nosniff (req, res, next) {
