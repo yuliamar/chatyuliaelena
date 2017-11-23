@@ -4,7 +4,6 @@
 //Initialisation from the socket.io and node.js
 var express = require('express');
 var helmet = require('helmet');
-var cookieSession = require('cookie-session');
 var app = express();
 var bodyParser = require("body-parser");
 var siofu = require("socketio-file-upload");
@@ -48,12 +47,12 @@ app.set('view engine', 'html')
 //}));
 
 //Will prevent the browser from MIME-sniffing a response away from the declared content-type.
-module.exports = function nosniff () {
-	  return function nosniff (req, res, next) {
-	    res.setHeader('X-Content-Type-Options', 'nosniff')
-	    next()
-	  }
-	}
+//module.exports = function nosniff () {
+//	  return function nosniff (req, res, next) {
+//	    res.setHeader('X-Content-Type-Options', 'nosniff')
+//	    next()
+//	  }
+//	}
 
 
 //enables the Cross-site scripting (XSS) filter built into most recent web browsers.
