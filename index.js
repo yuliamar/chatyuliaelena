@@ -352,14 +352,13 @@ io.on('connection', function(socket){
 
 function createUser(name, password, callback){
 	
-	var hashAndSalt = generatePasswordHash(password)
+//	var hashAndSalt = generatePasswordHash(password)
     db.insert({
-      _id: "org.couchdb.user:" + name,
-      name: name,
-      password_sha: hashAndSalt[0],
-      salt: hashAndSalt[1],
-      password_scheme: 'simple',
-      type: 'user'
+    	"_id": "org.couchdb.user:"+name,
+	    "name": name,
+	    "type": "user",
+	    "roles": [],
+	    "password": password
     }, callback)
 	
 	
