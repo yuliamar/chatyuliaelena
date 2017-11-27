@@ -363,9 +363,9 @@ function createUser(name, password, callback){
 	
 	
 	
-//  db.get(name, function (err, doc) {
-//    if(err && err.error === 'not_found'){
-//      var hashAndSalt = generatePasswordHash(password)
+  db.get(name, function (err, doc) {
+    if(err && err.error === 'not_found'){
+     
 //      db.insert({
 //    	_id: "org.couchdb.user:" + name,
 //        name: name,
@@ -374,19 +374,22 @@ function createUser(name, password, callback){
 //        password_scheme: 'simple',
 //        type: 'user'
 //      }, callback)
-//    } else if(err) {
-//      callback(err)
-//    } else {
-//      callback({error: 'user_exists'})
-//    }
-//  })
-}
-
-function generatePasswordHash(password){
-  var salt = crypto.randomBytes(16).toString('hex');
-  var hash = crypto.createHash('sha1');
-  hash.update(password + salt);
-  return [hash.digest('hex'), salt];
+      
+	    db.insert({
+	    	"_id": "org.couchdb.user:"+name,
+		    "name": name,
+		    "type": "user",
+		    "roles": [],
+		    "password": password
+	    }, callback)
+      
+      
+    } else if(err) {
+      callback(err)
+    } else {
+      callback({error: 'user_exists'})
+    }
+  })
 }
 
 	
