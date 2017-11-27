@@ -46,7 +46,8 @@ if (process.env.hasOwnProperty("VCAP_SERVICES")) {
 	  cloudant = env['cloudantNoSQLDB'][0].credentials;  
 	}
 var nano = require('nano')(cloudant.url);
-var db = nano.db.use('chat_db');
+//var db = nano.db.use('chat_db');
+var db = nano.db.use('_users');
 
 
 
