@@ -1,6 +1,5 @@
 /* Author: Yulia Hess 731183, Elena Klatt 741434 */
 
-
 //Initialisation from the socket.io and node.js
 var express = require('express');
 var helmet = require('helmet');
@@ -8,6 +7,8 @@ var app = express();
 var bodyParser = require("body-parser");
 var siofu = require("socketio-file-upload");
 var cfenv = require("cfenv")
+var cradle = require('cradle');
+var crypto = require('crypto');
 var defaultMaxAge = 180 * 24 * 60 * 60;
 var port = process.env.PORT || process.env.VCAP_APP_PORT || 3000;
 
