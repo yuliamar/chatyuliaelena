@@ -351,28 +351,41 @@ io.on('connection', function(socket){
 
 
 function createUser(name, password, callback){
-  db.get(name, function (err, doc) {
-    if(err && err.error === 'not_found'){
-//      var hashAndSalt = generatePasswordHash(password)
-      db.insert("org.couchdb.user:" + name, {
-        name: name,
-        password: password,
-        type: 'user'
-      }, callback)
-    } else if(err) {
-      callback(err)
-    } else {
-      callback({error: 'user_exists'})
-    }
-  })
+	
+	var user = {"name": name, "password": password, "type": "user"};
+	  db.insert(user, function(err, body, header) {
+	    if (!err) {       
+	    	console.log('Successfully added one score to the DB');
+//	      response.send('Successfully added one score to the DB');
+	    }else{
+	    	console.log(err);
+	    }
+	  });	
+	
+//  db.get(name, function (err, doc) {
+//    if(err && err.error === 'not_found'){
+////      var hashAndSalt = generatePasswordHash(password)
+//      db.insert({
+//        name: name,
+//        password: password,
+//        type: 'user'
+//      }, callback)
+//      
+//      
+//    } else if(err) {
+//      callback(err)
+//    } else {
+//      callback({error: 'user_exists'})
+//    }
+//  })
 }
 
-function generatePasswordHash(password){
-  var salt = crypto.randomBytes(16).toString('hex');
-  var hash = crypto.createHash('sha1');
-  hash.update(password + salt);
-  return [hash.digest('hex'), salt];
-}
+//function generatePasswordHash(password){
+//  var salt = crypto.randomBytes(16).toString('hex');
+//  var hash = crypto.createHash('sha1');
+//  hash.update(password + salt);
+//  return [hash.digest('hex'), salt];
+//}
 
 	
 
