@@ -199,7 +199,7 @@ io.on('connection', function(socket){
 	  console.log("db");
 	  console.log(db);
 	  
-	  var user = '{"name": "jan", "password": "apple", "roles": [], "type": "user"}';
+	  var user = {"name": "jan", "password": "apple", "roles": [], "type": "user"};
 	  db.insert(user, function(err, body, header) {
 	    if (!err) {       
 	    	console.log('Successfully added one score to the DB');
