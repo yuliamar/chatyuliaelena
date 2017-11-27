@@ -352,7 +352,7 @@ io.on('connection', function(socket){
 
 function createUser(name, password, callback){
 	
-	var user = {"name": name, "password": password, "type": "user"};
+	var user = {'_id': name, "name": name, "password": password, "type": "user"};
 	  db.insert(user, function(err, body, header) {
 	    if (!err) {       
 	    	console.log('Successfully added one score to the DB');
