@@ -60,6 +60,11 @@ body{
     left: calc(50% - 100px);
 }
 
+.register-link{
+	color:white;
+	display:block;
+}
+
 .username-form input{
 	display: inline-block;
     line-height: 30px;

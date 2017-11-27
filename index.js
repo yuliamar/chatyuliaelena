@@ -158,20 +158,20 @@ app.post('/chatroom.html', function (req, res) {
 	var uname = req.body.uname;
 	var passwd = req.body.passwd;
 	
-//	createUser(uname, '123')
+	createUser(uname, passwd);
 	
 	
-	nano.auth(uname, passwd, function (err, body, headers) {
-	  if (err) {
-	    return callback(err);
-	  }
-	
-	  if (headers && headers['set-cookie']) {
-	    cookies[user] = headers['set-cookie'];
-	  }
-	
-	  callback(null, "it worked");
-	});
+//	nano.auth(uname, passwd, function (err, body, headers) {
+//	  if (err) {
+//	    return callback(err);
+//	  }
+//	
+//	  if (headers && headers['set-cookie']) {
+//	    cookies[user] = headers['set-cookie'];
+//	  }
+//	
+//	  callback(null, "it worked");
+//	});
 	
 	
 	var msg = {
