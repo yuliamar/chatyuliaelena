@@ -46,8 +46,13 @@ if (process.env.hasOwnProperty("VCAP_SERVICES")) {
 	  // Also parse out Cloudant settings.
 	  cloudant = env['cloudantNoSQLDB'][0].credentials;  
 	}
-var nano = require('nano')(cloudant.url);
-//var db = nano.db.use('chat_db');
+//var nano = require('nano')(cloudant.url);
+
+var nano     = require('nano')(cloudant.url)
+				, callback = console.log // this would normally be some callback
+				, cookies  = {} // store cookies, normally redis or something
+				;
+
 var db = nano.db.use('_users');
 
 
@@ -151,8 +156,23 @@ app.use(express.static(__dirname + '/files'));
 // post method to chatroom.html
 app.post('/chatroom.html', function (req, res) {
 	var uname = req.body.uname;
+	var passwd = req.body.passwd;
 	
-	createUser(uname, '123')
+//	createUser(uname, '123')
+	
+	
+	nano.auth(uname, passwd, function (err, body, headers) {
+	  if (err) {
+	    return callback(err);
+	  }
+	
+	  if (headers && headers['set-cookie']) {
+	    cookies[user] = headers['set-cookie'];
+	  }
+	
+	  callback(null, "it worked");
+	});
+	
 	
 	var msg = {
 	    	'message': " is connected",
@@ -200,23 +220,6 @@ io.on('connection', function(socket){
 	  var uploader = new siofu();
 	  uploader.dir = "files";
 	  uploader.listen(socket);
-	  
-//	  console.log("db");
-//	  console.log(db);
-	  
-//	  var user = {"name": "jan", "password": "apple", "roles": [], "type": "user"};
-//	  db.insert(user, function(err, body, header) {
-//	    if (!err) {       
-//	    	console.log('Successfully added one score to the DB');
-////	      response.send('Successfully added one score to the DB');
-//	    }else{
-//	    	console.log(err);
-//	    }
-//	  });
-	  
-//	  console.log("--db---");
-	  
-	   
      
 	 console.log("user connected");
 	 sockets[socket.id] = socket; 
@@ -352,29 +355,8 @@ io.on('connection', function(socket){
 
 function createUser(name, password, callback){
 	
-//	var hashAndSalt = generatePasswordHash(password)
-//    db.insert({
-//    	"_id": "org.couchdb.user:"+name,
-//	    "name": name,
-//	    "type": "user",
-//	    "roles": [],
-//	    "password": password
-//    }, callback)
-	
-	
-	
   db.get(name, function (err, doc) {
     if(err && err.error === 'not_found'){
-     
-//      db.insert({
-//    	_id: "org.couchdb.user:" + name,
-//        name: name,
-//        password_sha: hashAndSalt[0],
-//        salt: hashAndSalt[1],
-//        password_scheme: 'simple',
-//        type: 'user'
-//      }, callback)
-      
 	    db.insert({
 	    	"_id": "org.couchdb.user:"+name,
 		    "name": name,
@@ -382,8 +364,6 @@ function createUser(name, password, callback){
 		    "roles": [],
 		    "password": password
 	    }, callback)
-      
-      
     } else if(err) {
       callback(err)
     } else {
@@ -391,8 +371,6 @@ function createUser(name, password, callback){
     }
   })
 }
-
-	
 
 
 //a color is calculated for each username
