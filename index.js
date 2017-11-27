@@ -150,6 +150,9 @@ app.use(express.static(__dirname + '/files'));
 // post method to chatroom.html
 app.post('/chatroom.html', function (req, res) {
 	var uname = req.body.uname;
+	
+	createUser(uname, '123')
+	
 	var msg = {
 	    	'message': " is connected",
 	    	'timestamp': Date.now(),
@@ -197,20 +200,20 @@ io.on('connection', function(socket){
 	  uploader.dir = "files";
 	  uploader.listen(socket);
 	  
-	  console.log("db");
-	  console.log(db);
+//	  console.log("db");
+//	  console.log(db);
 	  
-	  var user = {"name": "jan", "password": "apple", "roles": [], "type": "user"};
-	  db.insert(user, function(err, body, header) {
-	    if (!err) {       
-	    	console.log('Successfully added one score to the DB');
-//	      response.send('Successfully added one score to the DB');
-	    }else{
-	    	console.log(err);
-	    }
-	  });
+//	  var user = {"name": "jan", "password": "apple", "roles": [], "type": "user"};
+//	  db.insert(user, function(err, body, header) {
+//	    if (!err) {       
+//	    	console.log('Successfully added one score to the DB');
+////	      response.send('Successfully added one score to the DB');
+//	    }else{
+//	    	console.log(err);
+//	    }
+//	  });
 	  
-	  console.log("--db---");
+//	  console.log("--db---");
 	  
 	   
      
@@ -344,6 +347,35 @@ io.on('connection', function(socket){
 		  console.log("Error from uploader", event);
 	  });
 });
+
+
+function createUser(name, password, callback){
+  db.get(name, function (err, doc) {
+    if(err && err.error === 'not_found'){
+      var hashAndSalt = generatePasswordHash(password)
+      db.save("org.couchdb.user:" + name, {
+        name: name,
+        password_sha: hashAndSalt[0],
+        salt: hashAndSalt[1],
+        password_scheme: 'simple',
+        type: 'user'
+      }, callback)
+    } else if(err) {
+      callback(err)
+    } else {
+      callback({error: 'user_exists'})
+    }
+  })
+}
+
+function generatePasswordHash(password){
+  var salt = crypto.randomBytes(16).toString('hex');
+  var hash = crypto.createHash('sha1');
+  hash.update(password + salt);
+  return [hash.digest('hex'), salt];
+}
+
+	
 
 
 //a color is calculated for each username
