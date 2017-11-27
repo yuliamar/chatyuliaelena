@@ -196,13 +196,20 @@ io.on('connection', function(socket){
 	  uploader.dir = "files";
 	  uploader.listen(socket);
 	  
+	  console.log("db");
+	  console.log(db);
+	  
 	  var user = '{"name": "jan", "password": "apple", "roles": [], "type": "user"}';
 	  db.insert(user, function(err, body, header) {
 	    if (!err) {       
-	      response.send('Successfully added one score to the DB');
+	    	console.log('Successfully added one score to the DB');
+//	      response.send('Successfully added one score to the DB');
+	    }else{
+	    	console.log(err);
 	    }
 	  });
 	  
+	  console.log("--db---");
 	  
 	   
      
