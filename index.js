@@ -186,7 +186,7 @@ app.post('/chatroom.html', function (req, res) {
 	    cookies[user] = headers['set-cookie'];
 	  }
 	  console.log("it worked");
-	  joinChatroom(res);
+	  joinChatroom(res, uname);
 //	  callback(null, "it worked");
 	  
 	});
@@ -197,25 +197,25 @@ app.post('/chatroom.html', function (req, res) {
 });
 
 
-function joinChatroom(res){
+function joinChatroom(res, uname){
 	var msg = {
 	    	'message': " is connected",
 	    	'timestamp': Date.now(),
 	    	'username': uname,
 	    	'color' : 'grey'
 	      }
-	// check usernames
-//	if(uname in users){	
-//		res.render("pages/index", {
-//			error: "username already taken"
-//		});
-//	}else{
+//	 check usernames
+	if(uname in users){	
+		res.render("pages/index", {
+			error: "username already taken"
+		});
+	}else{
 		io.sockets.emit('chat message',msg);
 		// render chatroom page
 		res.render("pages/chatroom", {
 			username: uname
 		});
-//	}
+	}
 }
 
 //post method to chatroom.html
