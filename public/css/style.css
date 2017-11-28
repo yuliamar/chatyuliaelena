@@ -76,6 +76,7 @@ body{
 	color:black;
 	box-sizing:border-box;
 	padding:30px;
+	z-index:10000;
 }
 
 #registerbox.show{

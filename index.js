@@ -158,32 +158,34 @@ app.post('/chatroom.html', function (req, res) {
 	var uname = req.body.uname;
 	var passwd = req.body.passwd;
 
-//	nano.auth(login, password, function(error, document, headers) {
-//		if (error) {
-//		// return error
-//		} else if (document.userCtx.name === login && document.ok === true) {
-//			var user = nano.user(login, function(error, document, headers) {
-//			// return userCtx or user data
-//			});
-//		}
-//	});
-	
-	
-	nano.auth(uname, passwd, function (err, body, headers) {
-	  if (err) {
-		  res.render("pages/index", {
+	nano.auth(login, password, function(error, document, headers) {
+		if (error) {
+			res.render("pages/index", {
 				error: "wrong username or passwort"
 			});
-		  
-//	    return callback(err);
-	  }
-	
-	  if (headers && headers['set-cookie']) {
-	    cookies[user] = headers['set-cookie'];
-	  }
-	
-	  callback(null, "it worked");
+		} else if (document.userCtx.name === login && document.ok === true) {
+			var user = nano.user(login, function(error, document, headers) {
+				console.log("user logged in");
+			});
+		}
 	});
+	
+	
+//	nano.auth(uname, passwd, function (err, body, headers) {
+//	  if (err) {
+//		  res.render("pages/index", {
+//				error: "wrong username or passwort"
+//			});
+//		  
+////	    return callback(err);
+//	  }
+//	
+//	  if (headers && headers['set-cookie']) {
+//	    cookies[user] = headers['set-cookie'];
+//	  }
+//	
+//	  callback(null, "it worked");
+//	});
 	
 	
 	var msg = {
