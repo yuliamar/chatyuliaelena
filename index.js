@@ -157,21 +157,19 @@ app.use(express.static(__dirname + '/files'));
 app.post('/chatroom.html', function (req, res) {
 	var uname = req.body.uname;
 	var passwd = req.body.passwd;
+
 	
-	createUser(uname, passwd);
+	nano.auth(uname, passwd, function (err, body, headers) {
+	  if (err) {
+	    return callback(err);
+	  }
 	
+	  if (headers && headers['set-cookie']) {
+	    cookies[user] = headers['set-cookie'];
+	  }
 	
-//	nano.auth(uname, passwd, function (err, body, headers) {
-//	  if (err) {
-//	    return callback(err);
-//	  }
-//	
-//	  if (headers && headers['set-cookie']) {
-//	    cookies[user] = headers['set-cookie'];
-//	  }
-//	
-//	  callback(null, "it worked");
-//	});
+	  callback(null, "it worked");
+	});
 	
 	
 	var msg = {
@@ -192,6 +190,33 @@ app.post('/chatroom.html', function (req, res) {
 			username: uname
 		});
 	}
+
+});
+
+//post method to chatroom.html
+app.post('/register', function (req, res) {
+	var uname = req.body.uname;
+	var passwd = req.body.passwd;
+	
+	if(createUser(uname, passwd) == false){
+		res.render("pages/index", {
+			error: "username already taken"
+		});
+	}
+	
+	var msg = {
+	    	'message': " is connected",
+	    	'timestamp': Date.now(),
+	    	'username': uname,
+	    	'color' : 'grey'
+	      }
+	
+	io.sockets.emit('chat message',msg);
+	// render chatroom page
+	res.render("pages/chatroom", {
+		username: uname
+	});
+	
 
 });
 
@@ -367,7 +392,7 @@ function createUser(name, password, callback){
     } else if(err) {
       callback(err)
     } else {
-      callback({error: 'user_exists'})
+      return false;
     }
   })
 }

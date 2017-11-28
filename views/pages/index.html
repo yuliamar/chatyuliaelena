@@ -7,6 +7,15 @@
   </head>
   <body>
   	
+	<div id="registerbox">	
+		<a href="#" id="closelb">close</a>
+  		<form action="/register" method="post">
+			<input id="rusername" type="text" placeholder="Enter Username" name="uname" required>
+			<input type="password" name="passwd" placeholder="Your Password" required>
+			<button type="submit">Registrieren</button>
+		</form>   
+	</div>
+  	
   	<form action="/chatroom.html" method="post">
     	<div class="container" >
     		<div class="username-form">
@@ -21,5 +30,21 @@
   	<div class="heading">
   		<h1>Welcome to the chat</h1>
   	</div> 
+  	
+  	<script>
+  		$( document ).ready(function() {
+  			
+  			$( "#closelb" ).click(function() {
+				$('#registerwrapper').removeClass('show');
+			});
+  			
+  			$( ".register-link" ).click(function() {
+				$('#registerbox').addClass('show');
+			});
+  			
+		});
+  	</script>
+  	
+  	
   </body>
 </html>

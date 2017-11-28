@@ -65,6 +65,24 @@ body{
 	display:block;
 }
 
+#registerbox{
+	display:none;
+	position:absolute;
+	width:400px;
+	height:500px;
+	left:calc(50% - 200px);
+	top:calc(50% - 250px);
+	background-color:white;
+	color:black;
+	
+	#closelb{
+		position:absolute;
+		right:5px;
+		top:5px;
+		color:black;
+	}
+}
+
 .username-form input{
 	display: inline-block;
     line-height: 30px;
