@@ -55,6 +55,8 @@ var nano     = require('nano')(cloudant.url)
 var un = "e886fae7-da03-4fdd-9e13-b8cd5bd81308-bluemix";
 var pw = "802c4f4be77ddc0a3b0633088aaed8b16bb537534cd7df663a557a8d942433e6";
 
+var authCookie = "some stored cookie";
+
 var db = nano.db.use('_users');
 
 
@@ -186,7 +188,8 @@ app.post('/chatroom.html', function (req, res) {
 	  }
 	
 	  if (headers && headers['set-cookie']) {
-	    cookies[user] = headers['set-cookie'];
+//	    cookies[user] = headers['set-cookie'];
+		authCookie = headers['set-cookie'];
 	  }
 	  console.log("it worked");
 	  joinChatroom(res, uname);
