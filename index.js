@@ -175,8 +175,8 @@ app.post('/chatroom.html', function (req, res) {
 //	});
 	
 	
-//	nano.auth(uname, passwd, function (err, body, headers) {
-	nano.auth(un, pw, function (err, body, headers) {
+	nano.auth(uname, passwd, function (err, body, headers) {
+//	nano.auth(un, pw, function (err, body, headers) {
 	  if (err) {
 		  console.log("login error");
 		  console.log(err);
