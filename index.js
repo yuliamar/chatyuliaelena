@@ -158,36 +158,46 @@ app.post('/chatroom.html', function (req, res) {
 	var uname = req.body.uname;
 	var passwd = req.body.passwd;
 
-	nano.auth(login, password, function(error, document, headers) {
-		if (error) {
-			res.render("pages/index", {
-				error: "wrong username or passwort"
-			});
-		} else if (document.userCtx.name === login && document.ok === true) {
-			var user = nano.user(login, function(error, document, headers) {
-				console.log("user logged in");
-			});
-		}
-	});
-	
-	
-//	nano.auth(uname, passwd, function (err, body, headers) {
-//	  if (err) {
-//		  res.render("pages/index", {
+//	nano.auth(login, password, function(error, document, headers) {
+//		if (error) {
+//			res.render("pages/index", {
 //				error: "wrong username or passwort"
 //			});
-//		  
-////	    return callback(err);
-//	  }
-//	
-//	  if (headers && headers['set-cookie']) {
-//	    cookies[user] = headers['set-cookie'];
-//	  }
-//	
-//	  callback(null, "it worked");
+//		} else if (document.userCtx.name === login && document.ok === true) {
+//			var user = nano.user(login, function(error, document, headers) {
+//				console.log("user logged in");
+//			});
+//		}
 //	});
 	
 	
+	nano.auth(uname, passwd, function (err, body, headers) {
+	  if (err) {
+		  console.log("login error");
+		  console.log(err);
+		  res.render("pages/index", {
+				error: "wrong username or passwort"
+			});
+		  
+//	    return callback(err);
+	  }
+	
+	  if (headers && headers['set-cookie']) {
+	    cookies[user] = headers['set-cookie'];
+	  }
+	  console.log("it worked");
+	  joinChatroom(res);
+//	  callback(null, "it worked");
+	  
+	});
+	
+	
+
+
+});
+
+
+function joinChatroom(res){
 	var msg = {
 	    	'message': " is connected",
 	    	'timestamp': Date.now(),
@@ -195,19 +205,18 @@ app.post('/chatroom.html', function (req, res) {
 	    	'color' : 'grey'
 	      }
 	// check usernames
-	if(uname in users){	
-		res.render("pages/index", {
-			error: "username already taken"
-		});
-	}else{
+//	if(uname in users){	
+//		res.render("pages/index", {
+//			error: "username already taken"
+//		});
+//	}else{
 		io.sockets.emit('chat message',msg);
 		// render chatroom page
 		res.render("pages/chatroom", {
 			username: uname
 		});
-	}
-
-});
+//	}
+}
 
 //post method to chatroom.html
 app.post('/register', function (req, res) {
