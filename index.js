@@ -52,6 +52,8 @@ var nano     = require('nano')(cloudant.url)
 				, callback = console.log // this would normally be some callback
 				, cookies  = {} // store cookies, normally redis or something
 				;
+var un = "e886fae7-da03-4fdd-9e13-b8cd5bd81308-bluemix";
+var pw = "802c4f4be77ddc0a3b0633088aaed8b16bb537534cd7df663a557a8d942433e6";
 
 var db = nano.db.use('_users');
 
@@ -171,7 +173,8 @@ app.post('/chatroom.html', function (req, res) {
 //	});
 	
 	
-	nano.auth(uname, passwd, function (err, body, headers) {
+//	nano.auth(uname, passwd, function (err, body, headers) {
+	nano.auth(un, pw, function (err, body, headers) {
 	  if (err) {
 		  console.log("login error");
 		  console.log(err);
@@ -229,19 +232,7 @@ app.post('/register', function (req, res) {
 		});
 	}
 	
-	var msg = {
-	    	'message': " is connected",
-	    	'timestamp': Date.now(),
-	    	'username': uname,
-	    	'color' : 'grey'
-	      }
-	
-	io.sockets.emit('chat message',msg);
-	// render chatroom page
-	res.render("pages/chatroom", {
-		username: uname
-	});
-	
+	joinChatroom(res, uname);
 
 });
 
