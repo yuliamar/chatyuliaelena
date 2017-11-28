@@ -74,13 +74,24 @@ body{
 	top:calc(50% - 250px);
 	background-color:white;
 	color:black;
-	
-	#closelb{
-		position:absolute;
-		right:5px;
-		top:5px;
-		color:black;
-	}
+	box-sizing:border-box;
+	padding:30px;
+}
+
+#registerbox.show{
+	display:block;
+}
+
+#registerbox input{
+	width:100%;	
+	margin-bottom:30px;
+}
+
+#closelb{
+	position:absolute;
+	right:5px;
+	top:5px;
+	color:black;
 }
 
 .username-form input{
