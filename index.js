@@ -154,7 +154,7 @@ app.use (function (req, res, next) {
 
 //Access rights to the uploads folder (Pictures, Videos ...)
 app.use(express.static(__dirname + '/public'));
-app.use(express.static(__dirname + '/files'));
+//app.use(express.static(__dirname + '/files'));
 
 
 // post method to chatroom.html
@@ -262,7 +262,7 @@ io.on('connection', function(socket){
 	
 	  // init uploader
 	  var uploader = new siofu();
-	  uploader.dir = "files";
+	  uploader.dir = "public/files";
 	  uploader.listen(socket);
      
 	 console.log("user connected");
@@ -374,7 +374,7 @@ io.on('connection', function(socket){
 		    	'color': socket.color,
 		    	'socketId': socket.id,
 		    	'timestamp': Date.now(),
-				'link': 'https://chataplication.eu-de.mybluemix.net:'+port+"/"+ event.file.name,
+				'link': 'https://chataplication.eu-de.mybluemix.net:'+port+"/files/"+ event.file.name,
 				'filename': event.file.name
 			}
 	        
