@@ -262,7 +262,7 @@ io.on('connection', function(socket){
 	
 	  // init uploader
 	  var uploader = new siofu();
-	  uploader.dir = "public/files";
+	  uploader.dir = "files";
 	  uploader.listen(socket);
      
 	 console.log("user connected");
@@ -374,7 +374,7 @@ io.on('connection', function(socket){
 		    	'color': socket.color,
 		    	'socketId': socket.id,
 		    	'timestamp': Date.now(),
-				'link': 'https://chataplication.eu-de.mybluemix.net:'+port+"/"+ event.file.name,
+				'link': 'https://chataplication.eu-de.mybluemix.net:'+port+"/files/"+ event.file.name,
 				'filename': event.file.name
 			}
 	        

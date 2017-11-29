@@ -82,7 +82,7 @@ $( document ).ready(function() {
 		));
 		
 		// scroll down 
-		$(".chat-wrapper").animate({ scrollTop: $(document).height() }, 500);
+//		$(".chat-wrapper").animate({ scrollTop: $(document).height() }, 500);
 	});
 	
     // on message submit 
@@ -115,7 +115,7 @@ $( document ).ready(function() {
 			  "message"
 	   ));
 	  
-	  $(".chat-wrapper").animate({ scrollTop: $(document).height() }, 500);
+//	  $(".chat-wrapper").animate({ scrollTop: $(document).height() }, 500);
   
     });
     
@@ -130,7 +130,7 @@ $( document ).ready(function() {
     			 "private-message"
     	));
     	 
-    	 $(".chat-wrapper").animate({ scrollTop: $(document).height() }, 500);
+//    	 $(".chat-wrapper").animate({ scrollTop: $(document).height() }, 500);
 	});
     
     // set username on server
