@@ -262,7 +262,7 @@ io.on('connection', function(socket){
 	
 	  // init uploader
 	  var uploader = new siofu();
-	  uploader.dir = "files";
+	  uploader.dir = "public/files";
 	  uploader.listen(socket);
      
 	 console.log("user connected");
