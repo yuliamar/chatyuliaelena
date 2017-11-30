@@ -46,14 +46,13 @@ if (process.env.hasOwnProperty("VCAP_SERVICES")) {
 	  // Also parse out Cloudant settings.
 	  cloudant = env['cloudantNoSQLDB'][0].credentials;  
 	}
-//var nano = require('nano')(cloudant.url);
 
 var nano     = require('nano')(cloudant.url)
 				, callback = console.log // this would normally be some callback
 				, cookies  = {} // store cookies, normally redis or something
 				;
-var un = "e886fae7-da03-4fdd-9e13-b8cd5bd81308-bluemix";
-var pw = "802c4f4be77ddc0a3b0633088aaed8b16bb537534cd7df663a557a8d942433e6";
+//var un = "e886fae7-da03-4fdd-9e13-b8cd5bd81308-bluemix";
+//var pw = "802c4f4be77ddc0a3b0633088aaed8b16bb537534cd7df663a557a8d942433e6";
 
 var authCookie = "some stored cookie";
 
@@ -154,51 +153,28 @@ app.use (function (req, res, next) {
 
 //Access rights to the uploads folder (Pictures, Videos ...)
 app.use(express.static(__dirname + '/public'));
-//app.use(express.static(__dirname + '/files'));
 
 
 // post method to chatroom.html
 app.post('/chatroom.html', function (req, res) {
 	var uname = req.body.uname;
 	var passwd = req.body.passwd;
-
-//	nano.auth(login, password, function(error, document, headers) {
-//		if (error) {
-//			res.render("pages/index", {
-//				error: "wrong username or passwort"
-//			});
-//		} else if (document.userCtx.name === login && document.ok === true) {
-//			var user = nano.user(login, function(error, document, headers) {
-//				console.log("user logged in");
-//			});
-//		}
-//	});
-	
 	
 	nano.auth(uname, passwd, function (err, body, headers) {
-//	nano.auth(un, pw, function (err, body, headers) {
 	  if (err) {
 		  console.log("login error");
 		  console.log(err);
 		  res.render("pages/index", {
 				error: "wrong username or passwort"
 			});
-		  
-//	    return callback(err);
 	  }
 	
 	  if (headers && headers['set-cookie']) {
-//	    cookies[user] = headers['set-cookie'];
 		authCookie = headers['set-cookie'];
 	  }
 	  console.log("it worked");
 	  joinChatroom(res, uname);
-//	  callback(null, "it worked");
-	  
 	});
-	
-	
-
 
 });
 
@@ -210,7 +186,7 @@ function joinChatroom(res, uname){
 	    	'username': uname,
 	    	'color' : 'grey'
 	      }
-//	 check usernames
+	//	 check usernames
 	if(uname in users){	
 		res.render("pages/index", {
 			error: "username already taken"
@@ -228,15 +204,14 @@ function joinChatroom(res, uname){
 app.post('/register', function (req, res) {
 	var uname = req.body.uname;
 	var passwd = req.body.passwd;
+	var avatar = req.body.file;
 	
 	if(createUser(uname, passwd) == false){
 		res.render("pages/index", {
 			error: "username already taken"
 		});
 	}
-	
-	joinChatroom(res, uname);
-
+	joinChatroom(res, uname, file);
 });
 
 
@@ -369,8 +344,6 @@ io.on('connection', function(socket){
 	  uploader.on("saved", function(event){
 		  
 			  if(event.file.meta.hello != "avatar"){
-				  
-			  
 				  // get selected username 
 				  var username = event.file.meta.hello;
 			        var msg = {
@@ -399,8 +372,6 @@ io.on('connection', function(socket){
 				  
 				  socket.emit('media', msg);
 			  }
-	        
-		    
 	  });
 	  
 	  // catch uploader error output
@@ -410,7 +381,7 @@ io.on('connection', function(socket){
 });
 
 
-function createUser(name, password, callback){
+function createUser(name, password,avatar, callback){
 	
   db.get(name, function (err, doc) {
     if(err && err.error === 'not_found'){
@@ -419,7 +390,8 @@ function createUser(name, password, callback){
 		    "name": name,
 		    "type": "user",
 		    "roles": [],
-		    "password": password
+		    "password": password,
+		    "avatar": avatar
 	    }, callback)
     } else if(err) {
       callback(err)
@@ -442,8 +414,7 @@ function getRandomRolor() {
 
 
 // listen to port
-	http.listen(port, function() {
-//	http.listen(appEnv.port, appEnv.bind, function() { 
+http.listen(port, function() {
     console.log("server starting on " + port)
 })
 
