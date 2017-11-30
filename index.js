@@ -409,7 +409,7 @@ function createUser(name, password,avatar, callback){
 function getUserInfo(name){
 	db.get(name, function (err, doc) {
 		console.log(doc);
-	}
+	});
 }
 
 //a color is calculated for each username
