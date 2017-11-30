@@ -407,8 +407,10 @@ function createUser(name, password,avatar, callback){
 
 
 function getUserInfo(name){
-	db.get("test3", function (err, doc) {
+	console.log(name)
+	db.get(name, function (err, doc) {
 		console.log(doc);
+		console.log(err);
 	});
 }
 
