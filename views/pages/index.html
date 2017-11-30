@@ -14,7 +14,8 @@
   		<form action="/register" method="post">
 			<input id="rusername" type="text" placeholder="Enter Username" name="uname" required>
 			<input type="password" name="passwd" placeholder="Your Password" required>
-			<input type="file" name="avatar" id="input-file" />
+			<input type="file" id="input-file" />
+			<input type="hidden" id="avatar" name="avatar" />
 			<div id="image-preview"></div>
 			<button type="submit">Registrieren</button>
 		</form>   
@@ -64,6 +65,7 @@
 		    uploader.addEventListener("complete", function(event){
 		        console.log(event.success);
 		        console.log(event.file);
+		        $("#avatar").val(event.file);
 		    });
 					
 					
