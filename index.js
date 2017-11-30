@@ -172,6 +172,9 @@ app.post('/chatroom.html', function (req, res) {
 	  if (headers && headers['set-cookie']) {
 		authCookie = headers['set-cookie'];
 	  }
+	  
+	  console.log(body);
+	  console.log(headers);
 	  console.log("it worked");
 	  joinChatroom(res, uname);
 	});
