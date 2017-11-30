@@ -125,6 +125,12 @@ body{
 }
 
 
+#image-preview img{
+	width:100%;
+	height:auto;
+}
+
+
 /*Chatroom site*/
 
 .wrapper{
@@ -133,6 +139,8 @@ body{
 	position:relative;
 	height:100vh;
 }
+
+
 
 
 .wrapper .main{
