@@ -15,6 +15,7 @@
 			<input id="rusername" type="text" placeholder="Enter Username" name="uname" required>
 			<input type="password" name="passwd" placeholder="Your Password" required>
 			<input type="file" id="input-file" />
+			<div id="image-preview"></div>
 			<button type="submit">Registrieren</button>
 		</form>   
 	</div>
@@ -65,7 +66,30 @@
 		        console.log(event.file);
 		    });
 					
+					
+		    // upload listener on upload start
+		    uploader.addEventListener("start", function(event){  	
+		    	event.file.meta.hello = "avatar";
+		    });
 			
+			
+			// check media type and display in message box
+			socket.on('media',function(data){
+			
+				var message = "";
+				
+				if (data.link.match(/.+\.(jpg|png|jpeg|bmp|gif)$/i))
+				{
+					message	+= '<img src="' + data.link + '">';
+				} 
+				else
+				{
+					message += "wrong format, please updload an image!";
+				}
+				
+				$('#image-preview').html(message);
+		
+			});
   			
 		});
   	</script>

@@ -367,25 +367,38 @@ io.on('connection', function(socket){
 	  
 	  // Do something when a file is saved:
 	  uploader.on("saved", function(event){
-		  // get selected username 
-		  var username = event.file.meta.hello;
-	        var msg = {
-		    	'username': socket.username,
-		    	'color': socket.color,
-		    	'socketId': socket.id,
-		    	'timestamp': Date.now(),
-				'link': 'https://chataplication.eu-de.mybluemix.net/files/'+ event.file.name,
-				'filename': event.file.name
-			}
-	        
-	        if(username == "send to all"){
-	        	// send to all
-	        	io.emit('media', msg);
-	        }else{
-	        	// send to specific clients
-	        	socket.emit('media', msg);
-	        	users[username].emit('media', msg);
-	        }
+		  
+			  if(event.file.meta.hello != "avatar"){
+				  
+			  
+				  // get selected username 
+				  var username = event.file.meta.hello;
+			        var msg = {
+				    	'username': socket.username,
+				    	'color': socket.color,
+				    	'socketId': socket.id,
+				    	'timestamp': Date.now(),
+						'link': 'https://chataplication.eu-de.mybluemix.net/files/'+ event.file.name,
+						'filename': event.file.name
+					}
+		        
+		        if(username == "send to all"){
+		        	// send to all
+		        	io.emit('media', msg);
+		        }else{
+		        	// send to specific clients
+		        	socket.emit('media', msg);
+		        	users[username].emit('media', msg);
+		        }
+			        
+			  }else{
+				  var msg = {
+						'link': 'https://chataplication.eu-de.mybluemix.net/files/'+ event.file.name,
+						'filename': event.file.name
+					}
+				  
+				  socket.emit('media', msg);
+			  }
 	        
 		    
 	  });
