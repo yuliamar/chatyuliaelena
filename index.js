@@ -204,14 +204,14 @@ function joinChatroom(res, uname){
 app.post('/register', function (req, res) {
 	var uname = req.body.uname;
 	var passwd = req.body.passwd;
-	var avatar = req.body.file;
+	var avatar = req.body.avatar;
 	
-	if(createUser(uname, passwd) == false){
+	if(createUser(uname, passwd, avatar) == false){
 		res.render("pages/index", {
 			error: "username already taken"
 		});
 	}
-	joinChatroom(res, uname, file);
+	joinChatroom(res, uname);
 });
 
 
