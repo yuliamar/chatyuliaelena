@@ -69,9 +69,9 @@ body{
 	display:none;
 	position:absolute;
 	width:400px;
-	height:500px;
+	height:auto;
 	left:calc(50% - 200px);
-	top:calc(50% - 250px);
+	top:30px;
 	background-color:white;
 	color:black;
 	box-sizing:border-box;
