@@ -3,7 +3,9 @@
   <head>
     <title>Chat Login</title>
      <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <link rel="stylesheet" href="css/style.css">
+     <script src="/socket.io/socket.io.js"></script>
+     <link rel="stylesheet" href="css/style.css">
+    <script src="/siofu/client.js"></script>
   </head>
   <body>
   	
@@ -42,6 +44,28 @@
   			$( ".register-link" ).click(function() {
 				$('#registerbox').addClass('show');
 			});
+			
+			
+			var socket = io.connect();
+		    var uploader = new SocketIOFileUpload(socket);
+		
+		    // uploader listener on button press
+		    uploader.listenOnInput(document.getElementById("input-file"));
+		   
+		    
+		    // upload progress
+		    uploader.addEventListener("progress", function(event){
+		        var percent = event.bytesLoaded / event.file.size * 100;
+		        console.log("File is", percent.toFixed(2), "percent loaded");
+		    });
+		
+		    // file upload complete
+		    uploader.addEventListener("complete", function(event){
+		        console.log(event.success);
+		        console.log(event.file);
+		    });
+					
+			
   			
 		});
   	</script>
