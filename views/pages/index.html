@@ -65,7 +65,7 @@
 		    uploader.addEventListener("complete", function(event){
 		        console.log(event.success);
 		        console.log(event.file);
-		        $("#avatar").val(event.file);
+		        $("#avatar").val(event.file.name);
 		    });
 					
 					
