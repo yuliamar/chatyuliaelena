@@ -74,9 +74,12 @@
 		    	console.log(file);
 		    	$.ajax({
 		          type: "POST",
-				  url: "https://gateway-a.watsonplatform.net/visual-recognition/api/v3/detect_faces?api_key=abd64dee35146daed4a61354d162e98def85e4de",
-				  data: "https://chataplication.eu-de.mybluemix.net/files/mini.jpg",
-				  dataType: "json"
+				  url: "https://gateway-a.watsonplatform.net/visual-recognition/api/v3/detect_faces?api_key=abd64dee35146daed4a61354d162e98def85e4de&version=2016-05-20",
+				  // data: "https://chataplication.eu-de.mybluemix.net/files/mini.jpg",
+				  data: {
+					    "url": "https://chataplication.eu-de.mybluemix.net/files/braut-make-up.jpg"
+					},
+				  dataType: 'json'
 				}).done(function(data) {
 					console.log("done");
 					console.log(data);
@@ -86,6 +89,10 @@
 				  });
 
 		    }
+					
+					
+					https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classify?api_key={api-schlüssel}&version=2016-05-20
+					https://gateway-a.watsonplatform.net/visual-recognition/api/v3/detect_faces?api_key={api-schlüssel}&version=2016-05-20
 					
 					
 		    // upload listener on upload start
