@@ -71,25 +71,76 @@
 		    });
 		    
 		    function visionRecognision(file){
-		    	console.log(file);
-		    	$.ajax({
-		          type: "GET",
-		          url: "https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classify?api_key=abd64dee35146daed4a61354d162e98def85e4de&version=2016-05-20&url=https://chataplication.eu-de.mybluemix.net/files/"+file,
-				  // data: "https://chataplication.eu-de.mybluemix.net/files/mini.jpg",
-				  // data: {
-					    // "url": "https://chataplication.eu-de.mybluemix.net/files/braut-make-up.jpg"
-					// },
-				  dataType: 'json'
-				}).done(function(data) {
-					console.log("done");
-					console.log(data);
-				}).fail(function(error) {
-				    console.log( "error" );
-				    console.log(error);
-				  });
+		    	
+		    	var apiurl = "https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classify?api_key=abd64dee35146daed4a61354d162e98def85e4de&version=2016-05-20&url=https://chataplication.eu-de.mybluemix.net/files/"+file;
+		    	
+		    	makeCorsRequest(apiurl); 
+		    	
+		    	// console.log(file);
+		    	// $.ajax({
+		          // type: "GET",
+		          // url: "https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classify?api_key=abd64dee35146daed4a61354d162e98def85e4de&version=2016-05-20&url=https://chataplication.eu-de.mybluemix.net/files/"+file,
+				  // // data: "https://chataplication.eu-de.mybluemix.net/files/mini.jpg",
+				  // // data: {
+					    // // "url": "https://chataplication.eu-de.mybluemix.net/files/braut-make-up.jpg"
+					// // },
+				  // dataType: 'json'
+				// }).done(function(data) {
+					// console.log("done");
+					// console.log(data);
+				// }).fail(function(error) {
+				    // console.log( "error" );
+				    // console.log(error);
+				  // });
 
 		    }
-					
+				
+				
+			// Create the XHR object.
+			function createCORSRequest(method, url) {
+			  var xhr = new XMLHttpRequest();
+			  if ("withCredentials" in xhr) {
+			    // XHR for Chrome/Firefox/Opera/Safari.
+			    xhr.open(method, url, true);
+			  } else if (typeof XDomainRequest != "undefined") {
+			    // XDomainRequest for IE.
+			    xhr = new XDomainRequest();
+			    xhr.open(method, url);
+			  } else {
+			    // CORS not supported.
+			    xhr = null;
+			  }
+			  return xhr;
+			}
+			
+			// Helper method to parse the title tag from the response.
+			function getTitle(text) {
+			  return text.match('<title>(.*)?</title>')[1];
+			}
+			
+			// Make the actual CORS request.
+			function makeCorsRequest(url) {
+			  // This is a sample server that supports CORS.
+			
+			  var xhr = createCORSRequest('GET', url);
+			  if (!xhr) {
+			    alert('CORS not supported');
+			    return;
+			  }
+			
+			  // Response handlers.
+			  xhr.onload = function() {
+			    var text = xhr.responseText;
+			    var title = getTitle(text);
+			    alert('Response from CORS request to ' + url + ': ' + title);
+			  };
+			
+			  xhr.onerror = function() {
+			    alert('Woops, there was an error making the request.');
+			  };
+			
+			  xhr.send();
+			}		
 	
 					
 					
