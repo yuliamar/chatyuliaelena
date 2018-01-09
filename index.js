@@ -58,7 +58,11 @@ var authCookie = "some stored cookie";
 
 var db = nano.db.use('_users');
 
-
+app.use(function(req, res, next) {
+	  res.header("Access-Control-Allow-Origin", "*");
+	  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	  next();
+	});
 
 //Will prevent the browser from MIME-sniffing a response away from the declared content-type.
 //module.exports = function nosniff () {
