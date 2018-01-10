@@ -379,7 +379,7 @@ io.on('connection', function(socket){
 				  });
 
 				  var params = {
-				    images_file: fs.createReadStream('./public/files/'+ event.file.name);
+				    images_file: fs.createReadStream((__dirname + '/public/files/'+ event.file.name);
 				  };
 
 				  visual_recognition.detectFaces(params,
