@@ -58,7 +58,13 @@ var authCookie = "some stored cookie";
 
 var db = nano.db.use('_users');
 
-
+var watson = require('watson-developer-cloud');
+var fs = require('fs');
+var visual_recognition = watson.visual_recognition({
+  api_key: 'abd64dee35146daed4a61354d162e98def85e4de',
+  version: 'v3',
+  version_date: '2016-05-20'
+});
 
 //Will prevent the browser from MIME-sniffing a response away from the declared content-type.
 module.exports = function nosniff () {
@@ -370,13 +376,7 @@ io.on('connection', function(socket){
 			        
 			  }else{
 				  
-				  var watson = require('watson-developer-cloud');
-				  var fs = require('fs');
-				  var visual_recognition = watson.visual_recognition({
-				    api_key: 'abd64dee35146daed4a61354d162e98def85e4de',
-				    version: 'v3',
-				    version_date: '2016-05-20'
-				  });
+				  
 
 				  var params = {
 				    images_file: fs.createReadStream('public/files/'+ event.file.name)
