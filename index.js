@@ -49,18 +49,18 @@ app.set('view engine', 'html')
 
 
 
-if (process.env.VCAP_SERVICES) {
-   var env = JSON.parse(process.env.VCAP_SERVICES);
-   var cloudant = env['cloudantNoSQLDB'][0].credentials;
-} else {
+//if (process.env.VCAP_SERVICES) {
+//   var env = JSON.parse(process.env.VCAP_SERVICES);
+//   var cloudant = env['cloudantNoSQLDB'][0].credentials;
+//} else {
    var cloudant =     {
 			  "username": "e886fae7-da03-4fdd-9e13-b8cd5bd81308-bluemix",
 			  "password": "802c4f4be77ddc0a3b0633088aaed8b16bb537534cd7df663a557a8d942433e6",
 			  "host": "e886fae7-da03-4fdd-9e13-b8cd5bd81308-bluemix.cloudant.com",
 			  "port": 443,
 			  "url": "https://e886fae7-da03-4fdd-9e13-b8cd5bd81308-bluemix:802c4f4be77ddc0a3b0633088aaed8b16bb537534cd7df663a557a8d942433e6@e886fae7-da03-4fdd-9e13-b8cd5bd81308-bluemix.cloudant.com"
-			}
-};
+			};
+//};
 
 var nano     = require('nano')(cloudant.url)
 				, callback = console.log // this would normally be some callback
