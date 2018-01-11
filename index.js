@@ -26,7 +26,7 @@ var http = require('http').Server(app);
 
 var io = require('socket.io')(3000);
 var redis = require('socket.io-redis');
-io.adapter(redis({ host: 'localhost', port: 6379 }));
+io.adapter(redis({ host: 'https://chataplication.eu-de.mybluemix.net', port: 6379 }));
 
 //var redis = require('socket.io-redis');
 //io.adapter(redis({ host: host, port: port }));
