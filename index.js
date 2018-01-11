@@ -19,6 +19,10 @@ app.enable('trust proxy');
 
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+
+var redis = require('socket.io-redis');
+io.adapter(redis({ host: 'https://chataplication.eu-de.mybluemix.net/', port: port }));
+
 //var redis = require('socket.io-redis');
 //io.adapter(redis({ host: host, port: port }));
 
