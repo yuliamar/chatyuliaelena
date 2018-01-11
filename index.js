@@ -41,11 +41,11 @@ if (process.env.hasOwnProperty("VCAP_SERVICES")) {
 	  // Running on Bluemix. Parse out the port and host that we've been assigned.
 	  var env = JSON.parse(process.env.VCAP_SERVICES);
 	  var host = process.env.VCAP_APP_HOST;
-//	  var port = process.env.VCAP_APP_PORT;
+	  var port = process.env.VCAP_APP_PORT;
 	 
 	  // Also parse out Cloudant settings.
-//	  cloudant = env['cloudantNoSQLDB'][0].credentials;  
-//	}
+	  cloudant = env['cloudantNoSQLDB'][0].credentials;  
+	}
 
 var nano     = require('nano')(cloudant.url)
 				, callback = console.log // this would normally be some callback
