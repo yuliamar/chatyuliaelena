@@ -450,6 +450,6 @@ function getRandomRolor() {
 // listen to port
 http.listen(port, function() {
     console.log("server starting on " + port)
-})
+});
 
 
