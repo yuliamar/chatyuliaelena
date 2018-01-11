@@ -479,9 +479,13 @@ function getRandomRolor() {
 }
 
 
+app.listen(3000, function () {
+	  console.log('Example app listening on port 3000!');
+	});
+
 // listen to port
-http.listen(port, function() {
-    console.log("server starting on " + port)
-});
+//http.listen(port, function() {
+//    console.log("server starting on " + port)
+//});
 
 
