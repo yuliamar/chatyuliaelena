@@ -14,8 +14,8 @@ var defaultMaxAge = 180 * 24 * 60 * 60;
 
 
 var host = process.env.VCAP_APP_HOST;
-//var port = process.env.PORT || process.env.VCAP_APP_PORT || 3000;
-var port = 6379;
+var port = process.env.PORT || process.env.VCAP_APP_PORT || 3000;
+//var port = 6379;
 //var host = process.env.VCAP_APP_HOST || 'localhost';
 
 //Enable reverse proxy support in Express.
@@ -25,7 +25,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 var redis = require('socket.io-redis');
-io.adapter(redis({ host: host, port: port }));
+io.adapter(redis({ host: host, port: 6379 }));
 
 //var redis = require('socket.io-redis');
 //io.adapter(redis({ host: host, port: port }));
