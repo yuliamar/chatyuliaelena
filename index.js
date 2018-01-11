@@ -18,13 +18,13 @@ var port = process.env.PORT || process.env.VCAP_APP_PORT || 3000;
 app.enable('trust proxy');
 
 var http = require('http').Server(app);
-//var io = require('socket.io')(http);
+var io = require('socket.io')(http);
 //var redis = require('socket.io-redis');
 //io.adapter(redis({ host: host, port: port }));
 
-var io = require('socket.io')(3000);
-var redis = require('socket.io-redis');
-io.adapter(redis({ host: 'localhost', port: 6379 }));
+//var io = require('socket.io')(3000);
+//var redis = require('socket.io-redis');
+//io.adapter(redis({ host: 'localhost', port: 6379 }));
 
 var appEnv = cfenv.getAppEnv()
 // array of users
