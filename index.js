@@ -34,9 +34,7 @@ app.set('view engine', 'html')
 
 //Database
 
-var cloudant = {
-     url : "https://e886fae7-da03-4fdd-9e13-b8cd5bd81308-bluemix:802c4f4be77ddc0a3b0633088aaed8b16bb537534cd7df663a557a8d942433e6@e886fae7-da03-4fdd-9e13-b8cd5bd81308-bluemix.cloudant.com"               
-};
+
 //if (process.env.hasOwnProperty("VCAP_SERVICES")) {
 //	  // Running on Bluemix. Parse out the port and host that we've been assigned.
 //	  var env = JSON.parse(process.env.VCAP_SERVICES);
@@ -46,6 +44,17 @@ var cloudant = {
 //	  // Also parse out Cloudant settings.
 //	  cloudant = env['cloudantNoSQLDB'][0].credentials;  
 //	}
+
+if (process.env.VCAP_SERVICES) {
+   var env = JSON.parse(process.env.VCAP_SERVICES);
+   var host = process.env.VCAP_APP_HOST;
+   var port = process.env.VCAP_APP_PORT
+   var cloudant = env['cloudantNoSQLDB'][0].credentials;
+} else {
+	var cloudant = {
+	     url : "https://e886fae7-da03-4fdd-9e13-b8cd5bd81308-bluemix:802c4f4be77ddc0a3b0633088aaed8b16bb537534cd7df663a557a8d942433e6@e886fae7-da03-4fdd-9e13-b8cd5bd81308-bluemix.cloudant.com"              
+	};
+   };
 
 var nano     = require('nano')(cloudant.url)
 				, callback = console.log // this would normally be some callback
