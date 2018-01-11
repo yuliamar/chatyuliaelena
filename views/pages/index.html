@@ -67,13 +67,13 @@
 		        console.log(event.file);
 		        $("#avatar").val(event.file.name);
 		        
-		        visionRecognision(event.file.name);
+		        //visionRecognision(event.file.name);
 		    });
 		    
-		    function visionRecognision(file){
-		    	
-		    	var apiurl = "https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classify?api_key=abd64dee35146daed4a61354d162e98def85e4de&version=2016-05-20&url=https://chataplication.eu-de.mybluemix.net/files/"+file;
-		    	
+		    // function visionRecognision(file){
+// 		    	
+		    	// var apiurl = "https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classify?api_key=abd64dee35146daed4a61354d162e98def85e4de&version=2016-05-20&url=https://chataplication.eu-de.mybluemix.net/files/"+file;
+// 		    	
 		    	// makeCorsRequest(apiurl); 
 		    	
 		    	// console.log(file);
@@ -93,7 +93,7 @@
 				    // console.log(error);
 				  // });
 
-		    }
+		    // }
 				
 				
 			
