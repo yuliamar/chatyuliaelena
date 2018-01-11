@@ -12,15 +12,19 @@ var crypto = require('crypto');
 var defaultMaxAge = 180 * 24 * 60 * 60;
 
 var port = process.env.PORT || process.env.VCAP_APP_PORT || 3000;
-var host = process.env.VCAP_APP_HOST || 'localhost';
+//var host = process.env.VCAP_APP_HOST || 'localhost';
 
 //Enable reverse proxy support in Express.
 app.enable('trust proxy');
 
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
+//var io = require('socket.io')(http);
+//var redis = require('socket.io-redis');
+//io.adapter(redis({ host: host, port: port }));
+
+var io = require('socket.io')(3000);
 var redis = require('socket.io-redis');
-io.adapter(redis({ host: host, port: port }));
+io.adapter(redis({ host: 'localhost', port: 6379 }));
 
 var appEnv = cfenv.getAppEnv()
 // array of users
@@ -467,7 +471,7 @@ function getRandomRolor() {
 
 
 // listen to port
-http.listen(port, function() {
+http.listen(3000, function() {
     console.log("server starting on " + port)
 });
 
