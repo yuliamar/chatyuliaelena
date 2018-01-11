@@ -378,17 +378,17 @@ io.on('connection', function(socket){
 				  
 				  
 
-				  var params = {
-				    images_file: fs.createReadStream('public/files/'+ event.file.name)
-				  };
-
-				  visual_recognition.detectFaces(params,
-				    function(err, response) {
-				      if (err)
-				        console.log(err);
-				      else
-				        console.log(JSON.stringify(response, null, 2));
-				    });
+//				  var params = {
+//				    images_file: fs.createReadStream('public/files/'+ event.file.name)
+//				  };
+//
+//				  visual_recognition.detectFaces(params,
+//				    function(err, response) {
+//				      if (err)
+//				        console.log(err);
+//				      else
+//				        console.log(JSON.stringify(response, null, 2));
+//				    });
 				  
 				  
 				  var msg = {
