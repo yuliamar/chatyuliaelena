@@ -37,15 +37,15 @@ app.set('view engine', 'html')
 var cloudant = {
      url : "https://e886fae7-da03-4fdd-9e13-b8cd5bd81308-bluemix:802c4f4be77ddc0a3b0633088aaed8b16bb537534cd7df663a557a8d942433e6@e886fae7-da03-4fdd-9e13-b8cd5bd81308-bluemix.cloudant.com"               
 };
-//if (process.env.hasOwnProperty("VCAP_SERVICES")) {
-//	  // Running on Bluemix. Parse out the port and host that we've been assigned.
-//	  var env = JSON.parse(process.env.VCAP_SERVICES);
-//	  var host = process.env.VCAP_APP_HOST;
+if (process.env.hasOwnProperty("VCAP_SERVICES")) {
+	  // Running on Bluemix. Parse out the port and host that we've been assigned.
+	  var env = JSON.parse(process.env.VCAP_SERVICES);
+	  var host = process.env.VCAP_APP_HOST;
 //	  var port = process.env.VCAP_APP_PORT;
-//	 
-//	  // Also parse out Cloudant settings.
-//	  cloudant = env['cloudantNoSQLDB'][0].credentials;  
-//	}
+	 
+	  // Also parse out Cloudant settings.
+	  cloudant = env['cloudantNoSQLDB'][0].credentials;  
+	}
 
 var nano     = require('nano')(cloudant.url)
 				, callback = console.log // this would normally be some callback
@@ -58,13 +58,7 @@ var authCookie = "some stored cookie";
 
 var db = nano.db.use('_users');
 
-//var watson = require('watson-developer-cloud');
-//var fs = require('fs');
-//var visual_recognition = watson.visual_recognition({
-//  api_key: 'abd64dee35146daed4a61354d162e98def85e4de',
-//  version: 'v3',
-//  version_date: '2016-05-20'
-//});
+
 
 //Will prevent the browser from MIME-sniffing a response away from the declared content-type.
 module.exports = function nosniff () {
@@ -375,22 +369,6 @@ io.on('connection', function(socket){
 		        }
 			        
 			  }else{
-				  
-				  
-
-//				  var params = {
-//				    images_file: fs.createReadStream('public/files/'+ event.file.name)
-//				  };
-//
-//				  visual_recognition.detectFaces(params,
-//				    function(err, response) {
-//				      if (err)
-//				        console.log(err);
-//				      else
-//				        console.log(JSON.stringify(response, null, 2));
-//				    });
-				  
-				  
 				  var msg = {
 						'link': 'https://chataplication.eu-de.mybluemix.net/files/'+ event.file.name,
 						'filename': event.file.name
@@ -450,6 +428,5 @@ function getRandomRolor() {
 // listen to port
 http.listen(port, function() {
     console.log("server starting on " + port)
-});
-
+})
 
