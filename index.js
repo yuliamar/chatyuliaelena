@@ -44,8 +44,8 @@ if (process.env.hasOwnProperty("VCAP_SERVICES")) {
 //	  var port = process.env.VCAP_APP_PORT;
 	 
 	  // Also parse out Cloudant settings.
-	  cloudant = env['cloudantNoSQLDB'][0].credentials;  
-	}
+//	  cloudant = env['cloudantNoSQLDB'][0].credentials;  
+//	}
 
 var nano     = require('nano')(cloudant.url)
 				, callback = console.log // this would normally be some callback
