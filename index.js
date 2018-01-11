@@ -12,9 +12,10 @@ var crypto = require('crypto');
 var defaultMaxAge = 180 * 24 * 60 * 60;
 
 
-var env = JSON.parse(process.env.VCAP_SERVICES);
+
 var host = process.env.VCAP_APP_HOST;
-var port = 3000;
+//var port = process.env.PORT || process.env.VCAP_APP_PORT || 3000;
+var port = 6379;
 //var host = process.env.VCAP_APP_HOST || 'localhost';
 
 //Enable reverse proxy support in Express.
