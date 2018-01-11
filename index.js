@@ -22,10 +22,11 @@ var port = process.env.PORT || process.env.VCAP_APP_PORT || 3000;
 app.enable('trust proxy');
 
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
+//var io = require('socket.io')(http);
 
+var io = require('socket.io')(3000);
 var redis = require('socket.io-redis');
-io.adapter(redis({ host: '127.0.0.1', port: 6378 }));
+io.adapter(redis({ host: 'localhost', port: 6379 }));
 
 //var redis = require('socket.io-redis');
 //io.adapter(redis({ host: host, port: port }));
