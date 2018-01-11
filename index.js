@@ -11,6 +11,9 @@ var cradle = require('cradle');
 var crypto = require('crypto');
 var defaultMaxAge = 180 * 24 * 60 * 60;
 
+
+var env = JSON.parse(process.env.VCAP_SERVICES);
+var host = process.env.VCAP_APP_HOST;
 var port = process.env.PORT || process.env.VCAP_APP_PORT || 3000;
 //var host = process.env.VCAP_APP_HOST || 'localhost';
 
@@ -21,7 +24,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 var redis = require('socket.io-redis');
-io.adapter(redis({ host: 'https://chataplication.eu-de.mybluemix.net/', port: port }));
+io.adapter(redis({ host: host, port: port }));
 
 //var redis = require('socket.io-redis');
 //io.adapter(redis({ host: host, port: port }));
